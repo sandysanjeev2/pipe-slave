@@ -2,21 +2,22 @@ pipeline {
 	agent none
 
 		stages {
-			stage('test') {
+			stage('STAGE 1') {
+
 				agent { label 'master' }
 				steps {
 					echo "This is stage 1"
 					sh 'sleep 5'
 					}
 					}
-			stage('test2') {
+			stage('STAGE 2') {
 				agent { lable 'slave1' }
 				steps {
 					echo "this is test2"
 					sh 'sleep 5'
 					}
 					}
-			stage('test3') {
+			stage('STAGE 3') {
 				agent {label 'slave1' }
 				steps {
 					echo "This is from test3"
