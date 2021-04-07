@@ -24,9 +24,21 @@ pipeline {
 								}
 					}
 		stage("STAGE 4"){
-            steps {
-                echo "This is stage one"
-                sh 'sleep 5'
+		    agent { label 'slave1' }
+			 steps {
+		 sh '''
+                        #!/bin/bash
+                        cd /var/lib/jenkins/workspace
+                        if [ -d test1 ];then
+                                cd test1
+                                git pull  https://github.com/sandysanjeev2/test1.git
+                        else
+                        git clone https://github.com/sandysanjeev2/test1.git
+                        cd test1
+                        fi
+                        make
+                '''
+
             }
         }
     }    
