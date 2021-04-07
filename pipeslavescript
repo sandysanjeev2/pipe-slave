@@ -1,44 +1,29 @@
 pipeline {
-    agent none
+    agent any
     stages {
-			stage("STAGE 1"){
-				agent { label 'master' }
-				
-				steps {
-					parallel (
-						a: {	
-							echo "This is stage one step 1"
-							sh 'sleep 5'
-						   },
-						b: {
-							echo "This is stage one step 2"
-							sh 'sleep 5'
-						   },
-						c: {
-							echo "This is stage one step 3"
-							sh 'sleep 5'
-						   }
-						   )
-				}
-			}
-			
-			stage("STAGE 2"){
-				agent { label 'slave1' }
-				steps {
-					echo "This is stage one"
-					sh 'sleep 5'
-				}
-			}
-		stage("STAGE 3"){
-			agent { label 'master' }
+		stage("STAGE 1"){
             steps {
                 echo "This is stage one"
                 sh 'sleep 5'
             }
         }
-		
+		stage("STAGE 2"){
+						parallel {		
+									stage("STAGE 2 A"){
+														steps {
+																echo "This is stage one"
+																sh 'sleep 5'
+															  }
+													}
+									stage("STAGE 2 B"){
+														steps {
+																echo "This is stage one"
+																sh 'sleep 5'
+															  }
+													}
+								}
+					}
 		stage("STAGE 4"){
-			agent { label 'slave1' }
             steps {
                 echo "This is stage one"
                 sh 'sleep 5'
